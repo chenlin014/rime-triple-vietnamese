@@ -13,7 +13,7 @@ config.keyboard = {
 }
 
 config.onset_map = {
-	"ch", "p",  "c",  "t",  nil,  nil,  "ng", "r", "s", "gi", nil,
+	"qu", "p",  "c",  "t",  "ch",  nil, "ng", "r", "s", "gi", nil,
 	"h",  "b",  "g",  "d",  "đ",  "nh", "n",  "v", "l", " ",  nil,
 	"x",  "ph", "kh", "th", "tr", "",   "m"
 }
