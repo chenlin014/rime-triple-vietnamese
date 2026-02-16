@@ -89,8 +89,6 @@ local function make_syllable(onset, rime, tone)
 	)
 end
 
-print(make_syllable("h", "oay", 1))
-
 local function decode_syllable(code, maps)
 	if type(code) ~= "string" then
 		return {error = "code is not a string"}
@@ -135,6 +133,8 @@ function M.func(input, seg, env)
 	end
 
 	local code = string.sub(input, 1, 3)
+	local remaining = string.sub(input, 4)
+
 	local syllable = decode_syllable(code, maps)
 	if syllable.error then
 		yield(Candidate(input, seg.start, seg._end, syllable.error, " "))
@@ -147,12 +147,17 @@ function M.func(input, seg, env)
 	--   commit the syllable with a space at the end
 	--   start a syllable with the extra code
 	if #input > 3 then
-		env.engine:commit_text(syllable .. " ")
-		context:clear()
-		context:push_input(string.sub(input, 4))
+		if remaining:find("[^A-Za-z]") then
+			env.engine:commit_text(syllable .. remaining)
+			context:clear()
+		else
+			env.engine:commit_text(syllable .. " ")
+			context:clear()
+			context:push_input(remaining)
+		end
+	else
+		yield(Candidate(input, seg.start, seg._end, syllable, " "))
 	end
-
-	yield(Candidate(input, seg.start, seg._end, syllable, " "))
 end
 
 return M
