@@ -47,6 +47,10 @@ punctuator:
 
 key_binder:
   import_preset: default
+  bindings:
+    # disabling paging with period and comma
+    - { when: has_menu, accept: period, send: period}
+    - { when: has_menu, accept: comma, send: comma}
 
 recognizer:
   import_preset: default
