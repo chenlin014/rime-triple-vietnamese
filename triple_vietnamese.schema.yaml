@@ -6,7 +6,7 @@ schema:
   name: Ba Việt
   version: '0.0'
   author:
-    - 陳林 <1chen0bryan@gmail.com>
+    - 陳林(Chén Lín / Trần Lâm) <1chen0bryan@gmail.com>
 
 switches:
   - name: ascii_mode
