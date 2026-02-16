@@ -36,7 +36,7 @@ config.onset_map = {
 	"x",  "ph", "kh", "th", "tr", "",   "m"
 }
 
-config.rime_groups = {
+config.rime_maps = {
   a = {
 	"ưă", "ui", "ia", "ai", "ưu", nil,  "oi", "ôi", "ơi", "iêu", "êu",
 	"ư",  "u",  "i",  "a",  "y",  "eo", "o",  "ô",  "ơ",  "e",   "ê",

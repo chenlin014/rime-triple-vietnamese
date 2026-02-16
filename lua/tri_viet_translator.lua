@@ -5,7 +5,7 @@ maps.key_position = {}
 maps.key2onset = {}
 maps.key2group = {}
 maps.key2tone = {}
-maps.rime_groups = config.rime_groups
+maps.rime_maps = config.rime_maps
 for i, key in ipairs(config.keyboard) do
 	maps.key_position[key] = i
 	maps.key2onset[key] = config.onset_map[i]
@@ -220,7 +220,7 @@ local function decode_syllable(code, maps)
 
 	local onset = maps.key2onset[keys[1]] or ""
 
-	local rime_map = maps.rime_groups[maps.key2group[keys[2]]] or {}
+	local rime_map = maps.rime_maps[maps.key2group[keys[2]]] or {}
 
 	local tone = maps.key2tone[keys[2]] or 0
 
