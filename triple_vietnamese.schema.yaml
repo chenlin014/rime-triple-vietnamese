@@ -3,7 +3,7 @@
 
 schema:
   schema_id: triple_vietnamese
-  name: Ba Phanh
+  name: Ba Việt
   version: '0.0'
   author:
     - 陳林 <1chen0bryan@gmail.com>
