@@ -13,16 +13,85 @@ for i, key in ipairs(config.keyboard) do
 	maps.key2tone[key]  = config.tone_map[i]
 end
 
-local function apply_orthography(syllable)
-	syllable = syllable:gsub("c([iye])", "k%1")
-	syllable = syllable:gsub("cê", "kê")
-	syllable = syllable:gsub("g([iye])", "gh%1")
-	syllable = syllable:gsub("gê", "ghê")
+tonal_letters = {}
+tonal_letters["a"] = {"á", "à", "ả", "ã", "ạ"}
+tonal_letters["ă"] = {"ắ", "ằ", "ẳ", "ẵ", "ặ"}
+tonal_letters["â"] = {"ấ", "ầ", "ẩ", "ẫ", "ậ"}
+tonal_letters["e"] = {"é", "è", "ẻ", "ẽ", "ẹ"}
+tonal_letters["ê"] = {"ế", "ề", "ể", "ễ", "ệ"}
+tonal_letters["i"] = {"í", "ì", "ỉ", "ĩ", "ị"}
+tonal_letters["o"] = {"ó", "ò", "ỏ", "õ", "ọ"}
+tonal_letters["ô"] = {"ố", "ồ", "ổ", "ỗ", "ộ"}
+tonal_letters["ơ"] = {"ớ", "ờ", "ở", "ỡ", "ợ"}
+tonal_letters["u"] = {"ú", "ù", "ủ", "ũ", "ụ"}
+tonal_letters["ư"] = {"ứ", "ừ", "ử", "ữ", "ự"}
+tonal_letters["y"] = {"ý", "ỳ", "ỷ", "ỹ", "ỵ"}
 
-	return syllable
+diacritical_letters = "ăâêôơư"
+
+local function make_syllable(onset, rime, tone)
+	if type(onset) ~= "string" then
+		return {error = "apply_tone: onset is not a string"}
+	end
+	if type(rime) ~= "string" then
+		return {error = "apply_tone: rime is not a string"}
+	end
+	if math.type(tone) ~= "integer" then
+		return {error = "apply_tone: tone is not an integer"}
+	end
+	if tone < 0 or tone > 5 then
+		return {error = "apply_tone: tone must be between 0 and 5"}
+	end
+
+	if onset == "c" and (rime:find("^[iye]") or rime:find("^ê")) then
+		onset = "k"
+	end
+	if onset:find("g$") and (rime:find("^[iye]") or rime:find("^ê")) then
+		onset = onset:gsub("g", "gh")
+	end
+	if onset == "gi" and rime:find("^i") then
+		onset = "g"
+	end
+
+	if tone == 0 then return onset .. rime end
+
+	local nucleus = rime:gsub("[mngptch]", "")
+
+	if utf8.len(nucleus) == 1 then
+		return onset .. rime:gsub(nucleus, tonal_letters[nucleus][tone])
+	end
+
+	local last_dl = nil
+	for _, code in utf8.codes(nucleus) do
+		local char = utf8.char(code)
+		if diacritical_letters:find(char) then
+			last_dl = char
+		end
+	end
+	if last_dl then
+		return onset .. rime:gsub(last_dl, tonal_letters[last_dl][tone])
+	end
+
+	if nucleus == "oo" then
+		return onset .. "o" .. tonal_letters["o"][tone]
+	end
+
+	if nucleus == rime then
+		return onset .. rime:gsub(
+			nucleus:sub(-2,-2),
+			tonal_letters[nucleus:sub(-2,-2)][tone]
+		)
+	end
+
+	return onset .. rime:gsub(
+		nucleus:sub(-1, -1),
+		tonal_letters[nucleus:sub(-1,-1)][tone]
+	)
 end
 
-local function make_syllable(code, maps)
+print(make_syllable("h", "oay", 1))
+
+local function decode_syllable(code, maps)
 	if type(code) ~= "string" then
 		return {error = "code is not a string"}
 	end
@@ -36,21 +105,20 @@ local function make_syllable(code, maps)
 	keys[3] = string.sub(code,3,3)
 
 	local onset = maps.key2onset[keys[1]]
-	if not onset then return {error = "no onset for key: " .. keys[1]} end
+	if not onset then return {error = "no onset for " .. keys[1]} end
 
 	local group = maps.key2group[keys[2]]
-	if not group then return {error = "no group for key: " .. keys[2]} end
+	if not group then return {error = "no group for " .. keys[2]} end
 
 	local tone = maps.key2tone[keys[2]]
-	if not tone then return {error = "no tone for key: " .. keys[2]} end
+	if not tone then return {error = "no tone for " .. keys[2]} end
 
 	local rime = maps.rime_groups[group][maps.key_position[keys[3]]]
-	if not rime then return {error = "no rime for key: " .. keys[3]} end
+	if not rime then 
+		return {error = "no rime for " .. keys[3] .. " in group " .. group}
+	end
 
-	local syllable = onset .. rime
-	syllable = apply_orthography(syllable)
-
-	return syllable
+	return make_syllable(onset, rime, tone)
 end
 
 local M={}
@@ -67,7 +135,7 @@ function M.func(input, seg, env)
 	end
 
 	local code = string.sub(input, 1, 3)
-	local syllable = make_syllable(code, maps)
+	local syllable = decode_syllable(code, maps)
 	if syllable.error then
 		yield(Candidate(input, seg.start, seg._end, syllable.error, " "))
 		return
