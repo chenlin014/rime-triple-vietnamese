@@ -35,8 +35,8 @@ config.rime_groups = {
 	"ang", "ăng", "âng", "eng", "ênh", "inh", "ong", "ông", "anh", "ung"
   },
   oan = {
-	"oang", "oăng", "oong", "ưng", "uông", "iêng", "ương", "uâng", "uynh", nil,
-	"oan",  "oăn",  "oen",  "ưn",  "uôn",  "iên",  "ươn",  "uân",  "uyn",  "uênh",
+	"oang", "oăng", "oong", "ưng", "uông", "iêng", "ương", "uâng", "uynh", nil, nil,
+	"oan",  "oăn",  "oen",  "ưn",  "uôn",  "iên",  "ươn",  "uân",  "uyn",  "uênh", nil,
 	"oam",  "oăm",  "oem",  "ưm",  "uôm",  "iêm",  "ươm",  "oanh", "uyên"
   },
   at = {
