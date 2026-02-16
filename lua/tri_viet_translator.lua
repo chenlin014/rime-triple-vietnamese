@@ -29,6 +29,109 @@ tonal_letters["y"] = {"ý", "ỳ", "ỷ", "ỹ", "ỵ"}
 
 diacritical_letters = "ăâêôơư"
 
+lower2upper = {}
+lower2upper["a"] = "A"
+lower2upper["b"] = "B"
+lower2upper["c"] = "C"
+lower2upper["d"] = "D"
+lower2upper["e"] = "E"
+lower2upper["f"] = "F"
+lower2upper["g"] = "G"
+lower2upper["h"] = "H"
+lower2upper["i"] = "I"
+lower2upper["j"] = "J"
+lower2upper["k"] = "K"
+lower2upper["l"] = "L"
+lower2upper["m"] = "M"
+lower2upper["n"] = "N"
+lower2upper["o"] = "O"
+lower2upper["p"] = "P"
+lower2upper["q"] = "Q"
+lower2upper["r"] = "R"
+lower2upper["s"] = "S"
+lower2upper["t"] = "T"
+lower2upper["u"] = "U"
+lower2upper["v"] = "V"
+lower2upper["w"] = "W"
+lower2upper["x"] = "X"
+lower2upper["y"] = "Y"
+lower2upper["z"] = "Z"
+
+lower2upper["a"] = "A"
+lower2upper["á"] = "Á"
+lower2upper["à"] = "À"
+lower2upper["ả"] = "Ả"
+lower2upper["ã"] = "Ã"
+lower2upper["ạ"] = "Ạ"
+lower2upper["ă"] = "Ă"
+lower2upper["ắ"] = "Ắ"
+lower2upper["ằ"] = "Ằ"
+lower2upper["ẳ"] = "Ẳ"
+lower2upper["ẵ"] = "Ẵ"
+lower2upper["ặ"] = "Ặ"
+lower2upper["â"] = "Â"
+lower2upper["ấ"] = "Ấ"
+lower2upper["ầ"] = "Ầ"
+lower2upper["ẩ"] = "Ẩ"
+lower2upper["ẫ"] = "Ẫ"
+lower2upper["ậ"] = "Ậ"
+lower2upper["e"] = "E"
+lower2upper["é"] = "É"
+lower2upper["è"] = "È"
+lower2upper["ẻ"] = "Ẻ"
+lower2upper["ẽ"] = "Ẽ"
+lower2upper["ẹ"] = "Ẹ"
+lower2upper["ê"] = "Ê"
+lower2upper["ế"] = "Ế"
+lower2upper["ề"] = "Ề"
+lower2upper["ể"] = "Ể"
+lower2upper["ễ"] = "Ễ"
+lower2upper["ệ"] = "Ệ"
+lower2upper["i"] = "I"
+lower2upper["í"] = "Í"
+lower2upper["ì"] = "Ì"
+lower2upper["ỉ"] = "Ỉ"
+lower2upper["ĩ"] = "Ĩ"
+lower2upper["ị"] = "Ị"
+lower2upper["o"] = "O"
+lower2upper["ó"] = "Ó"
+lower2upper["ò"] = "Ò"
+lower2upper["ỏ"] = "Ỏ"
+lower2upper["õ"] = "Õ"
+lower2upper["ọ"] = "Ọ"
+lower2upper["ô"] = "Ô"
+lower2upper["ố"] = "Ố"
+lower2upper["ồ"] = "Ồ"
+lower2upper["ổ"] = "Ổ"
+lower2upper["ỗ"] = "Ỗ"
+lower2upper["ộ"] = "Ộ"
+lower2upper["ơ"] = "Ơ"
+lower2upper["ớ"] = "Ớ"
+lower2upper["ờ"] = "Ờ"
+lower2upper["ở"] = "Ở"
+lower2upper["ỡ"] = "Ỡ"
+lower2upper["ợ"] = "Ợ"
+lower2upper["u"] = "U"
+lower2upper["ú"] = "Ú"
+lower2upper["ù"] = "Ù"
+lower2upper["ủ"] = "Ủ"
+lower2upper["ũ"] = "Ũ"
+lower2upper["ụ"] = "Ụ"
+lower2upper["ư"] = "Ư"
+lower2upper["ứ"] = "Ứ"
+lower2upper["ừ"] = "Ừ"
+lower2upper["ử"] = "Ử"
+lower2upper["ữ"] = "Ữ"
+lower2upper["ự"] = "Ự"
+lower2upper["y"] = "Y"
+lower2upper["ý"] = "Ý"
+lower2upper["ỳ"] = "Ỳ"
+lower2upper["ỷ"] = "Ỷ"
+lower2upper["ỹ"] = "Ỹ"
+lower2upper["ỵ"] = "Ỵ"
+
+lower2upper["đ"] = "Đ"
+
 local function make_syllable(onset, rime, tone)
 	if type(onset) ~= "string" then
 		return {error = "apply_tone: onset is not a string"}
@@ -132,6 +235,12 @@ function M.func(input, seg, env)
 		return
 	end
 
+	local capitalize = false
+	if input:find("^[A-Z]") then
+		capitalize = true
+		input = input:lower()
+	end
+
 	local code = string.sub(input, 1, 3)
 	local remaining = string.sub(input, 4)
 
@@ -141,11 +250,15 @@ function M.func(input, seg, env)
 		return
 	end
 
+	if capitalize then
+		local offset = utf8.offset(syllable, 2)
+		local first = syllable:sub(1,offset-1)
+		first = lower2upper[first] or first
+		syllable = first .. syllable:sub(offset)
+	end
+
 	local context = env.engine.context
 
-	-- Completed syllable plus one more code:
-	--   commit the syllable with a space at the end
-	--   start a syllable with the extra code
 	if #input > 3 then
 		if remaining:find("[^A-Za-z]") then
 			env.engine:commit_text(syllable .. remaining)
