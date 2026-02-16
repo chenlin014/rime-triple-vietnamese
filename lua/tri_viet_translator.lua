@@ -145,19 +145,6 @@ for usym, lsym in pairs(u2lsym) do
 end
 
 local function make_syllable(onset, rime, tone)
-	if type(onset) ~= "string" then
-		return {error = "apply_tone: onset is not a string"}
-	end
-	if type(rime) ~= "string" then
-		return {error = "apply_tone: rime is not a string"}
-	end
-	if math.type(tone) ~= "integer" then
-		return {error = "apply_tone: tone is not an integer"}
-	end
-	if tone < 0 or tone > 5 then
-		return {error = "apply_tone: tone must be between 0 and 5"}
-	end
-
 	if onset == "c" and (rime:find("^[iye]") or rime:find("^ê")) then
 		onset = "k"
 	end
@@ -166,6 +153,9 @@ local function make_syllable(onset, rime, tone)
 	end
 	if onset == "gi" and rime:find("^i") then
 		onset = "g"
+	end
+	if onset == "" and rime:find("^iê") then
+		rime = rime:gsub("^i", "y")
 	end
 
 	if tone == 0 then return onset .. rime end
