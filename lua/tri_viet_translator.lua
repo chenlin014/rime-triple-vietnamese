@@ -29,108 +29,119 @@ tonal_letters["y"] = {"ý", "ỳ", "ỷ", "ỹ", "ỵ"}
 
 diacritical_letters = "ăâêôơư"
 
-lower2upper = {}
-lower2upper["a"] = "A"
-lower2upper["b"] = "B"
-lower2upper["c"] = "C"
-lower2upper["d"] = "D"
-lower2upper["e"] = "E"
-lower2upper["f"] = "F"
-lower2upper["g"] = "G"
-lower2upper["h"] = "H"
-lower2upper["i"] = "I"
-lower2upper["j"] = "J"
-lower2upper["k"] = "K"
-lower2upper["l"] = "L"
-lower2upper["m"] = "M"
-lower2upper["n"] = "N"
-lower2upper["o"] = "O"
-lower2upper["p"] = "P"
-lower2upper["q"] = "Q"
-lower2upper["r"] = "R"
-lower2upper["s"] = "S"
-lower2upper["t"] = "T"
-lower2upper["u"] = "U"
-lower2upper["v"] = "V"
-lower2upper["w"] = "W"
-lower2upper["x"] = "X"
-lower2upper["y"] = "Y"
-lower2upper["z"] = "Z"
+lower2upper = {
+	["a"] = "A",
+	["b"] = "B",
+	["c"] = "C",
+	["d"] = "D",
+	["e"] = "E",
+	["f"] = "F",
+	["g"] = "G",
+	["h"] = "H",
+	["i"] = "I",
+	["j"] = "J",
+	["k"] = "K",
+	["l"] = "L",
+	["m"] = "M",
+	["n"] = "N",
+	["o"] = "O",
+	["p"] = "P",
+	["q"] = "Q",
+	["r"] = "R",
+	["s"] = "S",
+	["t"] = "T",
+	["u"] = "U",
+	["v"] = "V",
+	["w"] = "W",
+	["x"] = "X",
+	["y"] = "Y",
+	["z"] = "Z",
+	["a"] = "A",
+	["á"] = "Á",
+	["à"] = "À",
+	["ả"] = "Ả",
+	["ã"] = "Ã",
+	["ạ"] = "Ạ",
+	["ă"] = "Ă",
+	["ắ"] = "Ắ",
+	["ằ"] = "Ằ",
+	["ẳ"] = "Ẳ",
+	["ẵ"] = "Ẵ",
+	["ặ"] = "Ặ",
+	["â"] = "Â",
+	["ấ"] = "Ấ",
+	["ầ"] = "Ầ",
+	["ẩ"] = "Ẩ",
+	["ẫ"] = "Ẫ",
+	["ậ"] = "Ậ",
+	["e"] = "E",
+	["é"] = "É",
+	["è"] = "È",
+	["ẻ"] = "Ẻ",
+	["ẽ"] = "Ẽ",
+	["ẹ"] = "Ẹ",
+	["ê"] = "Ê",
+	["ế"] = "Ế",
+	["ề"] = "Ề",
+	["ể"] = "Ể",
+	["ễ"] = "Ễ",
+	["ệ"] = "Ệ",
+	["i"] = "I",
+	["í"] = "Í",
+	["ì"] = "Ì",
+	["ỉ"] = "Ỉ",
+	["ĩ"] = "Ĩ",
+	["ị"] = "Ị",
+	["o"] = "O",
+	["ó"] = "Ó",
+	["ò"] = "Ò",
+	["ỏ"] = "Ỏ",
+	["õ"] = "Õ",
+	["ọ"] = "Ọ",
+	["ô"] = "Ô",
+	["ố"] = "Ố",
+	["ồ"] = "Ồ",
+	["ổ"] = "Ổ",
+	["ỗ"] = "Ỗ",
+	["ộ"] = "Ộ",
+	["ơ"] = "Ơ",
+	["ớ"] = "Ớ",
+	["ờ"] = "Ờ",
+	["ở"] = "Ở",
+	["ỡ"] = "Ỡ",
+	["ợ"] = "Ợ",
+	["u"] = "U",
+	["ú"] = "Ú",
+	["ù"] = "Ù",
+	["ủ"] = "Ủ",
+	["ũ"] = "Ũ",
+	["ụ"] = "Ụ",
+	["ư"] = "Ư",
+	["ứ"] = "Ứ",
+	["ừ"] = "Ừ",
+	["ử"] = "Ử",
+	["ữ"] = "Ữ",
+	["ự"] = "Ự",
+	["y"] = "Y",
+	["ý"] = "Ý",
+	["ỳ"] = "Ỳ",
+	["ỷ"] = "Ỷ",
+	["ỹ"] = "Ỹ",
+	["ỵ"] = "Ỵ",
+	["đ"] = "Đ"
+}
 
-lower2upper["a"] = "A"
-lower2upper["á"] = "Á"
-lower2upper["à"] = "À"
-lower2upper["ả"] = "Ả"
-lower2upper["ã"] = "Ã"
-lower2upper["ạ"] = "Ạ"
-lower2upper["ă"] = "Ă"
-lower2upper["ắ"] = "Ắ"
-lower2upper["ằ"] = "Ằ"
-lower2upper["ẳ"] = "Ẳ"
-lower2upper["ẵ"] = "Ẵ"
-lower2upper["ặ"] = "Ặ"
-lower2upper["â"] = "Â"
-lower2upper["ấ"] = "Ấ"
-lower2upper["ầ"] = "Ầ"
-lower2upper["ẩ"] = "Ẩ"
-lower2upper["ẫ"] = "Ẫ"
-lower2upper["ậ"] = "Ậ"
-lower2upper["e"] = "E"
-lower2upper["é"] = "É"
-lower2upper["è"] = "È"
-lower2upper["ẻ"] = "Ẻ"
-lower2upper["ẽ"] = "Ẽ"
-lower2upper["ẹ"] = "Ẹ"
-lower2upper["ê"] = "Ê"
-lower2upper["ế"] = "Ế"
-lower2upper["ề"] = "Ề"
-lower2upper["ể"] = "Ể"
-lower2upper["ễ"] = "Ễ"
-lower2upper["ệ"] = "Ệ"
-lower2upper["i"] = "I"
-lower2upper["í"] = "Í"
-lower2upper["ì"] = "Ì"
-lower2upper["ỉ"] = "Ỉ"
-lower2upper["ĩ"] = "Ĩ"
-lower2upper["ị"] = "Ị"
-lower2upper["o"] = "O"
-lower2upper["ó"] = "Ó"
-lower2upper["ò"] = "Ò"
-lower2upper["ỏ"] = "Ỏ"
-lower2upper["õ"] = "Õ"
-lower2upper["ọ"] = "Ọ"
-lower2upper["ô"] = "Ô"
-lower2upper["ố"] = "Ố"
-lower2upper["ồ"] = "Ồ"
-lower2upper["ổ"] = "Ổ"
-lower2upper["ỗ"] = "Ỗ"
-lower2upper["ộ"] = "Ộ"
-lower2upper["ơ"] = "Ơ"
-lower2upper["ớ"] = "Ớ"
-lower2upper["ờ"] = "Ờ"
-lower2upper["ở"] = "Ở"
-lower2upper["ỡ"] = "Ỡ"
-lower2upper["ợ"] = "Ợ"
-lower2upper["u"] = "U"
-lower2upper["ú"] = "Ú"
-lower2upper["ù"] = "Ù"
-lower2upper["ủ"] = "Ủ"
-lower2upper["ũ"] = "Ũ"
-lower2upper["ụ"] = "Ụ"
-lower2upper["ư"] = "Ư"
-lower2upper["ứ"] = "Ứ"
-lower2upper["ừ"] = "Ừ"
-lower2upper["ử"] = "Ử"
-lower2upper["ữ"] = "Ữ"
-lower2upper["ự"] = "Ự"
-lower2upper["y"] = "Y"
-lower2upper["ý"] = "Ý"
-lower2upper["ỳ"] = "Ỳ"
-lower2upper["ỷ"] = "Ỷ"
-lower2upper["ỹ"] = "Ỹ"
-lower2upper["ỵ"] = "Ỵ"
+local cap_type = {
+	no_caps = 0,
+	head_cap = 1,
+	all_caps = 2
+}
 
-lower2upper["đ"] = "Đ"
+local u2lsym = config.upper_to_lower_symbol or {}
+local upper_symbols = ""
+for usym, lsym in pairs(u2lsym) do
+	upper_symbols = upper_symbols .. usym
+end
 
 local function make_syllable(onset, rime, tone)
 	if type(onset) ~= "string" then
@@ -222,6 +233,39 @@ local function decode_syllable(code, maps)
 	return make_syllable(onset, rime, tone)
 end
 
+local function capitalization_state(text)
+	local head = text:sub(1,1)
+	local head_state
+	if head:match("[A-Z]") or upper_symbols:find(head) then
+		head_state = cap_type.head_cap
+	else
+		head_state = cap_type.no_caps
+	end
+
+	for i=2, #text do
+		local char = text:sub(i,i)
+
+		if (not char:match("[A-Z]")) and (not upper_symbols:find(char)) then
+			return head_state
+		end
+	end
+
+	return cap_type.all_caps
+end
+
+local function lowercase_code(text)
+	ltext = ""
+	for _, code in utf8.codes(text) do
+		local char = utf8.char(code)
+		ltext = ltext .. (u2lsym[char] or char:lower())
+	end
+
+	return ltext
+end
+
+local function uppercase_output(text)
+end
+
 local M={}
 
 function M.init(env)
@@ -235,14 +279,13 @@ function M.func(input, seg, env)
 		return
 	end
 
-	local capitalize = false
-	if input:find("^[A-Z]") then
-		capitalize = true
-		input = input:lower()
-	end
-
 	local code = string.sub(input, 1, 3)
 	local remaining = string.sub(input, 4)
+
+	local capitalization = capitalization_state(code)
+	if cap_state ~= cap_type.no_caps then
+		code = lowercase_code(code)
+	end
 
 	local syllable = decode_syllable(code, maps)
 	if syllable.error then
@@ -250,11 +293,19 @@ function M.func(input, seg, env)
 		return
 	end
 
-	if capitalize then
+	if capitalization == cap_type.head_cap then
 		local offset = utf8.offset(syllable, 2)
 		local first = syllable:sub(1,offset-1)
 		first = lower2upper[first] or first
 		syllable = first .. syllable:sub(offset)
+	end
+	if capitalization == cap_type.all_caps then
+		utext = ""
+		for _, code in utf8.codes(syllable) do
+			local char = utf8.char(code)
+			utext = utext .. (lower2upper[char] or char:upper())
+		end
+		syllable = utext
 	end
 
 	local context = env.engine.context

@@ -6,7 +6,7 @@ This is a input method for typing vietnamese syllables in three keys.
 ## Todo
 - [ ] Designing a properly layout
   - [ ] Finding data on Vietnamese phoneme frequency
-- [ ] Capitalization
+- [x] Capitalization
   - inp -> nam
   - Inp -> Nam
   - INP -> NAM
