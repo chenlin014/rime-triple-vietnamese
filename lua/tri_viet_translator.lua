@@ -13,19 +13,20 @@ for i, key in ipairs(config.keyboard) do
 	maps.key2tone[key]  = config.tone_map[i]
 end
 
-tonal_letters = {}
-tonal_letters["a"] = {"á", "à", "ả", "ã", "ạ"}
-tonal_letters["ă"] = {"ắ", "ằ", "ẳ", "ẵ", "ặ"}
-tonal_letters["â"] = {"ấ", "ầ", "ẩ", "ẫ", "ậ"}
-tonal_letters["e"] = {"é", "è", "ẻ", "ẽ", "ẹ"}
-tonal_letters["ê"] = {"ế", "ề", "ể", "ễ", "ệ"}
-tonal_letters["i"] = {"í", "ì", "ỉ", "ĩ", "ị"}
-tonal_letters["o"] = {"ó", "ò", "ỏ", "õ", "ọ"}
-tonal_letters["ô"] = {"ố", "ồ", "ổ", "ỗ", "ộ"}
-tonal_letters["ơ"] = {"ớ", "ờ", "ở", "ỡ", "ợ"}
-tonal_letters["u"] = {"ú", "ù", "ủ", "ũ", "ụ"}
-tonal_letters["ư"] = {"ứ", "ừ", "ử", "ữ", "ự"}
-tonal_letters["y"] = {"ý", "ỳ", "ỷ", "ỹ", "ỵ"}
+tonal_letters = {
+	["a"] = {"á", "à", "ả", "ã", "ạ"},
+	["ă"] = {"ắ", "ằ", "ẳ", "ẵ", "ặ"},
+	["â"] = {"ấ", "ầ", "ẩ", "ẫ", "ậ"},
+	["e"] = {"é", "è", "ẻ", "ẽ", "ẹ"},
+	["ê"] = {"ế", "ề", "ể", "ễ", "ệ"},
+	["i"] = {"í", "ì", "ỉ", "ĩ", "ị"},
+	["o"] = {"ó", "ò", "ỏ", "õ", "ọ"},
+	["ô"] = {"ố", "ồ", "ổ", "ỗ", "ộ"},
+	["ơ"] = {"ớ", "ờ", "ở", "ỡ", "ợ"},
+	["u"] = {"ú", "ù", "ủ", "ũ", "ụ"},
+	["ư"] = {"ứ", "ừ", "ử", "ữ", "ự"},
+	["y"] = {"ý", "ỳ", "ỷ", "ỹ", "ỵ"}
+}
 
 diacritical_letters = "ăâêôơư"
 
@@ -168,6 +169,7 @@ local function make_syllable(onset, rime, tone)
 	end
 
 	if tone == 0 then return onset .. rime end
+	if rime == "" then return onset end
 
 	local nucleus = rime:gsub("[mngptch]", "")
 
@@ -216,19 +218,13 @@ local function decode_syllable(code, maps)
 	keys[2] = string.sub(code,2,2)
 	keys[3] = string.sub(code,3,3)
 
-	local onset = maps.key2onset[keys[1]]
-	if not onset then return {error = "no onset for " .. keys[1]} end
+	local onset = maps.key2onset[keys[1]] or ""
 
-	local group = maps.key2group[keys[2]]
-	if not group then return {error = "no group for " .. keys[2]} end
+	local rime_map = maps.rime_groups[maps.key2group[keys[2]]] or {}
 
-	local tone = maps.key2tone[keys[2]]
-	if not tone then return {error = "no tone for " .. keys[2]} end
+	local tone = maps.key2tone[keys[2]] or 0
 
-	local rime = maps.rime_groups[group][maps.key_position[keys[3]]]
-	if not rime then 
-		return {error = "no rime for " .. keys[3] .. " in group " .. group}
-	end
+	local rime = rime_map[maps.key_position[keys[3]]] or ""
 
 	return make_syllable(onset, rime, tone)
 end
@@ -250,7 +246,11 @@ local function capitalization_state(text)
 		end
 	end
 
-	return cap_type.all_caps
+	if head_state == cap_type.head_cap then
+		return cap_type.all_caps
+	else
+		return cap_type.no_caps
+	end
 end
 
 local function lowercase_code(text)
@@ -266,6 +266,7 @@ end
 local function uppercase_output(text)
 end
 
+-- lua translator module
 local M={}
 
 function M.init(env)
@@ -274,17 +275,20 @@ end
 function M.fini(env)
 end
 
+-- function for processing input
 function M.func(input, seg, env)
-	if #input < 3 then
-		return
-	end
-
 	local code = string.sub(input, 1, 3)
 	local remaining = string.sub(input, 4)
 
 	local capitalization = capitalization_state(code)
 	if cap_state ~= cap_type.no_caps then
 		code = lowercase_code(code)
+	end
+
+	if #code == 1 then
+		code = code .. "XX"
+	elseif #code == 2 then
+		code = "X" .. code
 	end
 
 	local syllable = decode_syllable(code, maps)
@@ -298,9 +302,8 @@ function M.func(input, seg, env)
 		local first = syllable:sub(1,offset-1)
 		first = lower2upper[first] or first
 		syllable = first .. syllable:sub(offset)
-	end
-	if capitalization == cap_type.all_caps then
-		utext = ""
+	elseif capitalization == cap_type.all_caps then
+		local utext = ""
 		for _, code in utf8.codes(syllable) do
 			local char = utf8.char(code)
 			utext = utext .. (lower2upper[char] or char:upper())

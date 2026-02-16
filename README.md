@@ -15,6 +15,6 @@ This is a input method for typing vietnamese syllables in three keys.
   - [ ] Tone mark placements
 - [ ] Supporting old and new tone marking style
   - [ ] Tone mark style switch
-- [ ] Output for shorter codes
-  - [ ] 1: onset
-  - [ ] 2: final
+- [x] Output for shorter codes
+  - 1: onset
+  - 2: final
