@@ -271,6 +271,7 @@ function M.func(input, seg, env)
 	local code = string.sub(input, 1, 3)
 	local remaining = string.sub(input, 4)
 
+	code = code:gsub(" $", "")
 	local capitalization = capitalization_state(code)
 	code = lowercase(code)
 
@@ -300,9 +301,9 @@ function M.func(input, seg, env)
 		syllable = utext
 	end
 
-	if #input > 3 then
-		local context = env.engine.context
+	local context = env.engine.context
 
+	if #input > 3 then
 		if remaining:find("[^A-Za-z]") then
 			env.engine:commit_text(syllable .. remaining)
 			context:clear()
@@ -311,6 +312,9 @@ function M.func(input, seg, env)
 			context:clear()
 			context:push_input(remaining)
 		end
+	elseif input:match(" $") then
+		env.engine:commit_text(syllable .. " ")
+		context:clear()
 	else
 		yield(Candidate(input, seg.start, seg._end, syllable, " "))
 	end

@@ -20,7 +20,7 @@ This is a input method for typing vietnamese syllables in three keys.
   - 2: final
 - [ ] Integrating input methods like Telex or VNI
 - [ ] Entering Vietnamese letters in ascii mode
-- [ ] Have two keys for commit with space and commit without space
+- [x] Have two keys for commit with space and commit without space
   - inp + <space> -> commit "nam "
   - inp + <enter> -> commit "nam"
 - [ ] Supporting Chữ Nôm (𡨸喃) and Chữ Hán (𡨸漢)
