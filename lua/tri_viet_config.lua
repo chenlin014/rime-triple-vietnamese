@@ -31,41 +31,41 @@ config.lower_to_upper = {
 }
 
 config.onset_map = {
-	"qu", "p",  "c",  "t",  "ch",  nil, "ng", "r", "s", "gi", nil,
-	"h",  "b",  "g",  "d",  "đ",  "nh", "n",  "v", "l", " ",  nil,
+	"qu", "p",  "c",  "t",  "ch",  nil, "ng", "v", "r", "gi", nil,
+	"h",  "b",  "g",  "d",  "đ",  "nh", "n",  "s", "l", " ",  nil,
 	"x",  "ph", "kh", "th", "tr", "",   "m"
 }
 
 config.rime_maps = {
   a = {
-	"ưă", "ui", "ia", "ai", "ưu", nil,  "oi", "ôi", "ơi", "iêu", "êu",
-	"ư",  "u",  "i",  "a",  "y",  "eo", "o",  "ô",  "ơ",  "e",   "ê",
-	"ưu", "ua", "iu", "au", nil,  nil,  "ao", "ay", "ây", "âu"
+	nil,  nil,  "ia", "ai", nil, "ây", "ui", "oi", "ôi", "ơi", nil,
+	"ê",  "e",  "i",  "a",  "y", "âu", "u",  "o",  "ô",  "ơ",  nil,
+	"êu", "eo", "iu", "au", nil,  nil, "ua", "ao", "ay"
   },
   oa = {
-	  nil,   "ươi", "uya", "oai", nil, nil, nil,  nil,  nil,   nil,   nil,
-	  "oay", "uơ",  "uy",  "oa",  nil, nil, "oe", "uê", "uây", "oeo", nil,
-	  nil,   "ươu", "uyu", "oao"
+	nil,   nil,   "uya", "oai", nil,   nil,   "ưi", "ươi", nil,  nil,  nil,
+	"oe",  "iêu", "uy",  "oa",  "oay", "uây", "ư",  "uơ",  "ưa", "uê", nil,
+	"oeo", nil,   "uyu", "oao", nil,   nil,   "ưu", "ươu"
   },
   an = {
-	"am",  "ăm",  "âm",  "em",  "êm",  "im",  "om",  "ôm",  "ơm",  "um", nil,
-	"an",  "ăn",  "ân",  "en",  "ên",  "in",  "on",  "ôn",  "ơn",  "un", nil,
-	"ang", "ăng", "âng", "eng", "ênh", "inh", "ong", "ông", "anh", "ung"
+	"ênh", "eng", "inh", "ang", "ăng", "âng", "ung", "ong", "ông", nil, nil,
+	"ên",  "en",  "in",  "an",  "ăn",  "ân",  "un",  "on",  "ôn",  "ơn", "anh",
+	"êm",  "em",  "im",  "am",  "ăm",  "âm",  "um",  "om",  "ôm",  "ơm"
   },
   oan = {
-	"oang", "oăng", "oong", "ưng", "uông", "iêng", "ương", "uâng", "uynh", nil, nil,
-	"oan",  "oăn",  "oen",  "ưn",  "uôn",  "iên",  "ươn",  "uân",  "uyn",  "uênh", nil,
-	"oam",  "oăm",  "oem",  "ưm",  "uôm",  "iêm",  "ươm",  "oanh", "uyên"
+	"oem",  "iêng", "uynh", "oang", "oăng", "uâng", "ưng", "ương", "uông", "uênh", nil,
+	"oen",  "iên",  "uyn",  "oan",  "oăn",  "uân",  "ưn",  "ươn",  "uôn",  "uyên", "oanh",
+	"oong", "iêm",  nil,    "oam",  "oăm",  nil,    "ưm",  "ươm",  "uôm"
   },
   at = {
-	"ac", "ăc", "âc", "ec", "êch", "ich", "oc", "ôc", "ooc", "uc", "ưc",
-	"at", "ăt", "ât", "et", "êt",  "it",  "ot", "ôt", "ơt",  "ut", "ưt",
-	"ap", "ăp", "âp", "ep", "êp",  "ip",  "op", "ôp", "ơp",  "up"
+	"êch", "ec", "ich", "ac", "ăc", "âc", "uc", "oc", "ôc", nil,  nil,
+	"êt",  "et", "it",  "at", "ăt", "ât", "ut", "ot", "ôt", "ơt", "ooc",
+	"êp",  "ep", "ip",  "ap", "ăp", "âp", "up", "op", "ôp", "ơp"
   },
   oat = {
-	nil,   "uôc", "iêc", "oac", nil, nil,    "uych", "ươc", "oăc", nil,   nil,
-	"uât", "uôt", "iêt", "oat", nil, "uyêt", "uyt",  "ươt", "oăt", "oet", nil,
-	nil,   "uôp", "iêp", "oap", nil, nil,    "uyp",  "ươp", "oach"
+	nil,   "iêc", "uych", "oac", "oăc", "oach", "ưc", "ươc", "uôc", "uêch", nil,
+	"oet", "iêt", "uyt",  "oat", "oăt", "uât",  "ưt", "ươt", "uôt", "uyêt", nil,
+	nil,   "iêp", "uyp",  "oap", nil,   nil,    nil,  "ươp", "uôp"
   }
 }
 
