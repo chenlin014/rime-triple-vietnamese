@@ -132,17 +132,20 @@ lower2upper = {
 	["đ"] = "Đ"
 }
 
+for l, u in pairs(config.lower_to_upper or {}) do
+	lower2upper[l] = u
+end
+
+upper2lower = {}
+for l, u in pairs(lower2upper) do
+	upper2lower[u] = l
+end
+
 local cap_type = {
 	no_caps = 0,
 	head_cap = 1,
 	all_caps = 2
 }
-
-local u2lsym = config.upper_to_lower_symbol or {}
-local upper_symbols = ""
-for usym, lsym in pairs(u2lsym) do
-	upper_symbols = upper_symbols .. usym
-end
 
 local function make_syllable(onset, rime, tone)
 	if onset == "c" and (rime:find("^[iye]") or rime:find("^ê")) then
@@ -222,7 +225,7 @@ end
 local function capitalization_state(text)
 	local head = text:sub(1,1)
 	local head_state
-	if head:match("[A-Z]") or upper_symbols:find(head) then
+	if head:match("[A-Z]") or upper2lower[head] then
 		head_state = cap_type.head_cap
 	else
 		head_state = cap_type.no_caps
@@ -230,8 +233,7 @@ local function capitalization_state(text)
 
 	for i=2, #text do
 		local char = text:sub(i,i)
-
-		if (not char:match("[A-Z]")) and (not upper_symbols:find(char)) then
+		if (not char:match("[A-Z]")) and (not upper2lower[char]) then
 			return head_state
 		end
 	end
@@ -243,17 +245,14 @@ local function capitalization_state(text)
 	end
 end
 
-local function lowercase_code(text)
+local function lowercase(text)
 	ltext = ""
 	for _, code in utf8.codes(text) do
 		local char = utf8.char(code)
-		ltext = ltext .. (u2lsym[char] or char:lower())
+		ltext = ltext .. (upper2lower[char] or char:lower())
 	end
 
 	return ltext
-end
-
-local function uppercase_output(text)
 end
 
 -- lua translator module
@@ -271,9 +270,7 @@ function M.func(input, seg, env)
 	local remaining = string.sub(input, 4)
 
 	local capitalization = capitalization_state(code)
-	if cap_state ~= cap_type.no_caps then
-		code = lowercase_code(code)
-	end
+	code = lowercase(code)
 
 	if #code == 1 then
 		code = code .. "XX"
@@ -289,9 +286,9 @@ function M.func(input, seg, env)
 
 	if capitalization == cap_type.head_cap then
 		local offset = utf8.offset(syllable, 2)
-		local first = syllable:sub(1,offset-1)
-		first = lower2upper[first] or first
-		syllable = first .. syllable:sub(offset)
+		local head = syllable:sub(1,offset-1)
+		head = lower2upper[head] or head:upper()
+		syllable = head .. syllable:sub(offset)
 	elseif capitalization == cap_type.all_caps then
 		local utext = ""
 		for _, code in utf8.codes(syllable) do
@@ -301,9 +298,9 @@ function M.func(input, seg, env)
 		syllable = utext
 	end
 
-	local context = env.engine.context
-
 	if #input > 3 then
+		local context = env.engine.context
+
 		if remaining:find("[^A-Za-z]") then
 			env.engine:commit_text(syllable .. remaining)
 			context:clear()

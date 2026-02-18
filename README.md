@@ -18,6 +18,8 @@ This is a input method for typing vietnamese syllables in three keys.
 - [x] Output for shorter codes
   - 1: onset
   - 2: final
+- [ ] Integrating input methods like Telex or VNI
+- [ ] Entering Vietnamese letters in ascii mode
 - [ ] Have two keys for commit with space and commit without space
   - inp + <space> -> commit "nam "
   - inp + <enter> -> commit "nam"

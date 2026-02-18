@@ -46,6 +46,10 @@ key_binder:
     - { when: has_menu, accept: period, send: period}
     - { when: has_menu, accept: comma, send: comma}
 
+editor:
+  bindings:
+    Return: confirm
+
 recognizer:
   import_preset: default
   patterns:
