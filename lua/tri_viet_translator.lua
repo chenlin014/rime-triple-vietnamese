@@ -182,7 +182,9 @@ local function make_syllable(onset, rime, tone)
 	end
 
 	if nucleus == "oo" then
-		return onset .. "o" .. tonal_letters["o"][tone]
+		return onset .. "o" .. rime:sub(2):gsub(
+			"o", tonal_letters["o"][tone]
+		)
 	end
 
 	if nucleus == rime then
