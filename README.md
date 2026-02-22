@@ -3,6 +3,13 @@
 ## About
 This is a input method for typing vietnamese syllables in three keys.
 
+## Resource
+- Luong Hieu Thi
+  - [All syllables in Vietnamese language](https://www.hieuthi.com/blog/2017/03/21/all-vietnamese-syllables.html)
+  - [common-vietnamese-syllables.txt](https://gist.github.com/hieuthi/1f5d80fca871f3642f61f7e3de883f3a)
+- tunc2112
+  - [vietnamese-syllable-regex](https://github.com/tunc2112/vietnamese-syllable-regex/)
+
 ## Todo
 - [ ] Designing a properly layout
   - [ ] Finding data on Vietnamese syllable frequency
