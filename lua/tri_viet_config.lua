@@ -31,8 +31,8 @@ config.lower_to_upper = {
 }
 
 config.onset_map = {
-	"qu", "p",  "c",  "t",  "ch",  nil, "ng", "v", "r", "gi", nil,
-	"h",  "b",  "g",  "d",  "đ",  "nh", "n",  "s", "l", " ",  nil,
+	"qu", "p",  "c",  "t",  "ch",  nil, "ng", "s", "r", "gi", nil,
+	"h",  "b",  "g",  "d",  "đ",  "nh", "n",  "v", "l", " ",  nil,
 	"x",  "ph", "kh", "th", "tr", "",   "m"
 }
 
