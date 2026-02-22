@@ -24,3 +24,10 @@ This is a input method for typing vietnamese syllables in three keys.
   - inp + <space> -> commit "nam "
   - inp + <enter> -> commit "nam"
 - [ ] Supporting Chữ Nôm (𡨸喃) and Chữ Hán (𡨸漢)
+- [ ] Symbols
+  - Other motified Latin letters
+  - Korean Hangul
+  - Japanese Kana
+  - Greek Alphabet
+  - Emoji
+  - etc.
