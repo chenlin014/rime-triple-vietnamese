@@ -257,6 +257,22 @@ local function lowercase(text)
 	return ltext
 end
 
+local function uppercase(text)
+	local utext = ""
+	for _, code in utf8.codes(text) do
+		local char = utf8.char(code)
+		utext = utext .. (lower2upper[char] or char:upper())
+	end
+	return utext
+end
+
+local function capitalize(text)
+	local offset = utf8.offset(text, 2)
+	local head = text:sub(1,offset-1)
+	head = lower2upper[head] or head:upper()
+	return head .. text:sub(offset)
+end
+
 -- lua translator module
 local M={}
 
@@ -289,21 +305,16 @@ function M.func(input, seg, env)
 
 	local next_onset = ""
 	if remaining ~= "" then
-		next_onset = decode_syllable(remaining .. "XX", maps)
+		next_onset = decode_syllable(lowercase(remaining) .. "XX", maps)
+	end
+	if remaining:match("^[A-Z]") or upper2lower[remaining] then
+		next_onset = capitalize(next_onset)
 	end
 
 	if capitalization == cap_type.head_cap then
-		local offset = utf8.offset(syllable, 2)
-		local head = syllable:sub(1,offset-1)
-		head = lower2upper[head] or head:upper()
-		syllable = head .. syllable:sub(offset)
+		syllable = capitalize(syllable)
 	elseif capitalization == cap_type.all_caps then
-		local utext = ""
-		for _, code in utf8.codes(syllable) do
-			local char = utf8.char(code)
-			utext = utext .. (lower2upper[char] or char:upper())
-		end
-		syllable = utext
+		syllable = uppercase(syllable)
 	end
 
 	local context = env.engine.context
