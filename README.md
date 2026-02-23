@@ -3,6 +3,23 @@
 ## About
 This is a input method for typing vietnamese syllables in three keys.
 
+## Behavior
+- Capitalization
+  - in/ -> nam
+  - In/ -> Nam
+  - IN? -> NAM
+- Auto commit
+  - in/ + a
+    - commit "nam" + (space)
+    - start new syllable with a
+  - in/ + .
+    - commit "nam."
+- Manual commit
+  - in/ + (space)
+    - commit "nam" + (space)
+  - in/ + (enter)
+    - commit "nam"
+
 ## Resource
 - Luong Hieu Thi
   - [All syllables in Vietnamese language](https://www.hieuthi.com/blog/2017/03/21/all-vietnamese-syllables.html)
@@ -13,10 +30,6 @@ This is a input method for typing vietnamese syllables in three keys.
 ## Todo
 - [ ] Designing a properly layout
   - [ ] Finding data on Vietnamese syllable frequency
-- [x] Capitalization
-  - inp -> nam
-  - Inp -> Nam
-  - INP -> NAM
 - [ ] Checks
   - [ ] Coverage of syllables
   - [ ] Tone mark placements
@@ -27,9 +40,6 @@ This is a input method for typing vietnamese syllables in three keys.
   - 2: final
 - [ ] Integrating input methods like Telex or VNI
 - [ ] Entering Vietnamese letters in ascii mode
-- [x] Have two keys for commit with space and commit without space
-  - inp + <space> -> commit "nam "
-  - inp + <enter> -> commit "nam"
 - [ ] Supporting Chữ Nôm (𡨸喃) and Chữ Hán (𡨸漢)
 - [ ] Symbols
   - Other motified Latin letters
