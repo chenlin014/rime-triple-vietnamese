@@ -284,6 +284,7 @@ end
 
 -- function for processing input
 function M.func(input, seg, env)
+	::start::
 	local code = string.sub(input, 1, 3)
 	local remaining = string.sub(input, 4)
 
@@ -303,14 +304,6 @@ function M.func(input, seg, env)
 		return
 	end
 
-	local next_onset = ""
-	if remaining ~= "" then
-		next_onset = decode_syllable(lowercase(remaining) .. "XX", maps)
-	end
-	if remaining:match("^[A-Z]") or upper2lower[remaining] then
-		next_onset = capitalize(next_onset)
-	end
-
 	if capitalization == cap_type.head_cap then
 		syllable = capitalize(syllable)
 	elseif capitalization == cap_type.all_caps then
@@ -327,7 +320,8 @@ function M.func(input, seg, env)
 			env.engine:commit_text(syllable .. " ")
 			context:clear()
 			context:push_input(remaining)
-			yield(Candidate(input, seg.start, seg._end, next_onset, " "))
+			input = remaining
+			goto start
 		end
 	elseif input:match(" $") then
 		env.engine:commit_text(syllable .. " ")
