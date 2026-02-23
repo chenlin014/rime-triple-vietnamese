@@ -4,6 +4,10 @@
 This is a input method for typing vietnamese syllables in three keys.
 
 ## Behavior
+- Output for different code lengths
+  - 1: onset
+  - 2: final
+  - 3: syllable
 - Capitalization
   - in/ -> nam
   - In/ -> Nam

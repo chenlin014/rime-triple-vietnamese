@@ -287,6 +287,11 @@ function M.func(input, seg, env)
 		return
 	end
 
+	local next_onset = ""
+	if remaining ~= "" then
+		next_onset = decode_syllable(remaining .. "XX", maps)
+	end
+
 	if capitalization == cap_type.head_cap then
 		local offset = utf8.offset(syllable, 2)
 		local head = syllable:sub(1,offset-1)
@@ -311,6 +316,7 @@ function M.func(input, seg, env)
 			env.engine:commit_text(syllable .. " ")
 			context:clear()
 			context:push_input(remaining)
+			yield(Candidate(input, seg.start, seg._end, next_onset, " "))
 		end
 	elseif input:match(" $") then
 		env.engine:commit_text(syllable .. " ")
