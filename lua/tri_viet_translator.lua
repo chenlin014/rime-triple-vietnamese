@@ -157,6 +157,9 @@ local function make_syllable(onset, rime, tone)
 	if onset == "gi" and rime:find("^i") then
 		onset = "g"
 	end
+	if onset == "qu" and rime:find("^u") then
+		onset = "q"
+	end
 	if onset == "" and rime:find("^iê") then
 		rime = rime:gsub("^i", "y")
 	end
