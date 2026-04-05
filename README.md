@@ -1,4 +1,5 @@
-# Rime Triple Vietnamese
+# rime-triple-vietnamese
+[Rime](https://rime.im/) Triple Key Vietnamese
 
 ## About
 This is a input method for typing vietnamese syllables in three keys.
