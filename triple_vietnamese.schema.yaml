@@ -34,8 +34,9 @@ engine:
     - lua_translator@*tri_viet_translator
 
 speller:
-  alphabet: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA~`1234567890!@#$%^&*()-_+=[]{}\|:;"',.<>/?
+  alphabet: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA~`1234567890!@#$%^&*()-_+=[]{}\\|:;\"',.<>/? "
   initials: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"
+  use_space: true
 
 punctuator:
 
@@ -49,6 +50,7 @@ key_binder:
 editor:
   bindings:
     Return: confirm
+    space: noop
 
 recognizer:
   import_preset: default
