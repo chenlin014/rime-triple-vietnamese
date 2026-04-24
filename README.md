@@ -1,10 +1,17 @@
-# rime-triple-vietnamese
+# Rime Key Vietnamese
 [Rime](https://rime.im/) Triple Key Vietnamese
+
+## Dependency
+- [KathrynCG/rime-chunom-cakegao](https://github.com/KathrynCG/rime-chunom-cakegao)
+
+## Default Layout
+![Default Layout](default_layout.png)
 
 ## About
 This is a input method for typing vietnamese syllables in three keys.
 
 ## Behavior
+For demonstration purpose, assume "in/" maps to "nam".
 - Output for different code lengths
   - 1: onset
   - 2: final
@@ -31,9 +38,6 @@ This is a input method for typing vietnamese syllables in three keys.
   - [common-vietnamese-syllables.txt](https://gist.github.com/hieuthi/1f5d80fca871f3642f61f7e3de883f3a)
 - tunc2112
   - [vietnamese-syllable-regex](https://github.com/tunc2112/vietnamese-syllable-regex/)
-
-# Dependency
-- [KathrynCG/rime-chunom-cakegao](https://github.com/KathrynCG/rime-chunom-cakegao)
 
 ## Todo
 - [ ] Designing a properly layout
