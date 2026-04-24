@@ -32,6 +32,9 @@ This is a input method for typing vietnamese syllables in three keys.
 - tunc2112
   - [vietnamese-syllable-regex](https://github.com/tunc2112/vietnamese-syllable-regex/)
 
+# Dependency
+- [KathrynCG/rime-chunom-cakegao](https://github.com/KathrynCG/rime-chunom-cakegao)
+
 ## Todo
 - [ ] Designing a properly layout
   - [ ] Finding data on Vietnamese syllable frequency
@@ -45,7 +48,7 @@ This is a input method for typing vietnamese syllables in three keys.
   - 2: final
 - [ ] Integrating input methods like Telex or VNI
 - [ ] Entering Vietnamese letters in ascii mode
-- [ ] Supporting Chữ Nôm (𡨸喃) and Chữ Hán (𡨸漢)
+- [x] Supporting Chữ Nôm (𡨸喃) and Chữ Hán (𡨸漢)
 - [ ] Symbols
   - Other motified Latin letters
   - Korean Hangul

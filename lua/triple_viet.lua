@@ -288,8 +288,10 @@ end
 local T={}
 
 function T.init(env)
+	local name_space = env.name_space
+	if not name_space or name_space == "main" then return end
 	local schema = Schema(env.engine.schema.schema_id or "")
-	env.tran = Component.Translator(env.engine, schema, name_space, "translator", "script_translator")
+	env[name_space.."_tran"] = Component.Translator(env.engine, schema, name_space, "script_translator")
 end
 
 function T.fini(env)
@@ -297,9 +299,17 @@ end
 
 function T.func(input, seg, env)
 	local context = env.engine.context
-	local codes = divide_string(input, 3)
+	local name_space = env.name_space
 
+	if name_space ~= "main" then
+		if not context:get_option(name_space) then
+			return
+		end
+	end
+
+	local codes = divide_string(input, 3)
 	local text = ""
+
 	for _, code in ipairs(codes) do
 		if code:match("^[^a-zA-Z]$") then
 			env.engine:commit_text(text:gsub("^ ", "")..code)
@@ -317,7 +327,7 @@ function T.func(input, seg, env)
 		end
 
 		local success, syllable = pcall(decode_syllable, code, maps)
-		if not success then goto output end
+		if not success then break end
 
 		if capitalization == cap_type.head_cap then
 			syllable = capitalize(syllable)
@@ -328,11 +338,21 @@ function T.func(input, seg, env)
 		text = text.." "..syllable
 	end
 
-	::output::
 	if text == "" then return end
 	text = text:gsub("^ ", "")
 
-	yield(Candidate(input, seg.start, seg._end, text, " "))
+	if name_space == "main" then
+		local cand = Candidate(name_space, seg.start, seg._end, text, " ")
+		cand.quality = 10000
+		yield(cand)
+		return
+	end
+
+	local t = env[name_space.."_tran"]:query(text, seg)
+	if not t then return end
+	for c in t:iter() do
+		yield(Candidate(name_space, seg.start, seg._end, c.text, " "))
+	end
 end
 
 local P = {}
