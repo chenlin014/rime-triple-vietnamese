@@ -15,6 +15,7 @@ switches:
 
 engine:
   processors:
+    - lua_processor@*triple_viet*proc
     - ascii_composer
     - recognizer
     - key_binder
@@ -31,12 +32,11 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - lua_translator@*tri_viet_translator
+    - lua_translator@*triple_viet*tran
 
 speller:
-  alphabet: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA~`1234567890!@#$%^&*()-_+=[]{}\\|:;\"',.<>/? "
+  alphabet: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA~`!@#$%^&*()-_+=[]{}\\|:;\"',.<>/?"
   initials: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"
-  use_space: true
 
 punctuator:
 
@@ -50,7 +50,6 @@ key_binder:
 editor:
   bindings:
     Return: confirm
-    space: noop
 
 recognizer:
   import_preset: default

@@ -205,10 +205,10 @@ end
 
 local function decode_syllable(code, maps)
 	if type(code) ~= "string" then
-		return {error = "code is not a string"}
+		error("code is not a string")
 	end
 	if #code ~= 3 then
-		return {error = "length of code != 3"}
+		error("length of code != 3")
 	end
 
 	local keys = {}
@@ -276,62 +276,85 @@ local function capitalize(text)
 	return head .. text:sub(offset)
 end
 
--- lua translator module
-local M={}
-
-function M.init(env)
+local function divide_string(s, n)
+	local slices = {}
+	local len = #s
+	for i = 1, len, n do
+		table.insert(slices, s:sub(i, i+n-1))
+	end
+	return slices
 end
 
-function M.fini(env)
+local T={}
+
+function T.init(env)
+	local schema = Schema(env.engine.schema.schema_id or "")
+	env.tran = Component.Translator(env.engine, schema, name_space, "translator", "script_translator")
 end
 
--- function for processing input
-function M.func(input, seg, env)
-	::start::
-	local code = string.sub(input, 1, 3)
-	local remaining = string.sub(input, 4)
+function T.fini(env)
+end
 
-	code = code:gsub(" $", "")
-	local capitalization = capitalization_state(code)
-	code = lowercase(code)
-
-	if #code == 1 then
-		code = code .. "XX"
-	elseif #code == 2 then
-		code = "X" .. code
-	end
-
-	local syllable = decode_syllable(code, maps)
-	if syllable.error then
-		yield(Candidate(input, seg.start, seg._end, syllable.error, " "))
-		return
-	end
-
-	if capitalization == cap_type.head_cap then
-		syllable = capitalize(syllable)
-	elseif capitalization == cap_type.all_caps then
-		syllable = uppercase(syllable)
-	end
-
+function T.func(input, seg, env)
 	local context = env.engine.context
+	local codes = divide_string(input, 3)
 
-	if #input > 3 then
-		if remaining:find("[^A-Za-z]") then
-			env.engine:commit_text(syllable .. remaining)
+	local text = ""
+	for _, code in ipairs(codes) do
+		if code:match("^[^a-zA-Z]$") then
+			env.engine:commit_text(text:gsub("^ ", "")..code)
 			context:clear()
-		else
-			env.engine:commit_text(syllable .. " ")
-			context:clear()
-			context:push_input(remaining)
-			input = remaining
-			goto start
+			return
 		end
-	elseif input:match(" $") then
-		env.engine:commit_text(syllable .. " ")
-		context:clear()
-	else
-		yield(Candidate(input, seg.start, seg._end, syllable, " "))
+
+		local capitalization = capitalization_state(code)
+		code = lowercase(code)
+
+		if #code == 1 then
+			code = code.."XX"
+		elseif #code == 2 then
+			code = "X"..code
+		end
+
+		local success, syllable = pcall(decode_syllable, code, maps)
+		if not success then goto output end
+
+		if capitalization == cap_type.head_cap then
+			syllable = capitalize(syllable)
+		elseif capitalization == cap_type.all_caps then
+			syllable = uppercase(syllable)
+		end
+
+		text = text.." "..syllable
 	end
+
+	::output::
+	if text == "" then return end
+	text = text:gsub("^ ", "")
+
+	yield(Candidate(input, seg.start, seg._end, text, " "))
 end
 
-return M
+local P = {}
+
+function P.init(env)
+end
+
+function P.fini(env)
+end
+
+function P.func(key, env)
+	local context = env.engine.context
+	local key_repr = key:repr()
+
+	local commit_text = context:get_commit_text()
+
+	if key_repr == "space" then
+		env.engine:commit_text(commit_text)
+		context:clear()
+	end
+
+	return 2 -- noop
+end
+
+return { tran=T, proc=P }
