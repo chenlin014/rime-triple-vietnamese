@@ -31,9 +31,9 @@ config.lower_to_upper = {
 }
 
 config.onset_map = {
-	"qu", "p",  "c",  "t",  "ch",  nil, "ng", "s", "r", "gi", nil,
-	"h",  "b",  "g",  "d",  "đ",  "nh", "n",  "v", "l", " ",  nil,
-	"x",  "ph", "kh", "th", "tr", "",   "m"
+	"ph", "tr", "th", "kh", "qu", nil, "ng", "nh", "r", "p", nil,
+	"v",  "đ",  "t",  "c",  "",   "h", "ch", "n",  "l", nil,  nil,
+	"b",  "s",  "d",  "g",  "gi", "x", "m"
 }
 
 config.rime_maps = {
