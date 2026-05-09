@@ -21,9 +21,6 @@ For demonstration purpose, assume "in/" maps to "nam".
   - In/ -> Nam
   - IN? -> NAM
 - Auto commit
-  - in/ + a
-    - commit "nam" + (space)
-    - start new syllable with a
   - in/ + .
     - commit "nam."
 - Manual commit
