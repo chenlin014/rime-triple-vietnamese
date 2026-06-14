@@ -53,18 +53,18 @@ config.rime_maps = {
 	"êm",  "em",  "im",  "am",  "ăm",  "âm",  "um",  "om",  "ôm",  "ơm"
   },
   oan = {
-	"oem",  "iêng", "uynh", "oang", "oăng", "uâng", "ưng", "ương", "uông", "uênh", nil,
+	"oong", "iêng", "uynh", "oang", "oăng", "uâng", "ưng", "ương", "uông", "uênh", nil,
 	"oen",  "iên",  "uyn",  "oan",  "oăn",  "uân",  "ưn",  "ươn",  "uôn",  "uyên", "oanh",
-	"oong", "iêm",  nil,    "oam",  "oăm",  nil,    "ưm",  "ươm",  "uôm"
+	"oem",  "iêm",  nil,    "oam",  "oăm",  nil,    "ưm",  "ươm",  "uôm"
   },
   at = {
 	"êch", "ec", "ich", "ac", "ăc", "âc", "uc", "oc", "ôc", nil,  nil,
-	"êt",  "et", "it",  "at", "ăt", "ât", "ut", "ot", "ôt", "ơt", "ooc",
+	"êt",  "et", "it",  "at", "ăt", "ât", "ut", "ot", "ôt", "ơt", "ach",
 	"êp",  "ep", "ip",  "ap", "ăp", "âp", "up", "op", "ôp", "ơp"
   },
   oat = {
 	nil,   "iêc", "uych", "oac", "oăc", "oach", "ưc", "ươc", "uôc", "uêch", nil,
-	"oet", "iêt", "uyt",  "oat", "oăt", "uât",  "ưt", "ươt", "uôt", "uyêt", nil,
+	"oet", "iêt", "uyt",  "oat", "oăt", "uât",  "ưt", "ươt", "uôt", "uyêt", "ooc",
 	nil,   "iêp", "uyp",  "oap", nil,   nil,    nil,  "ươp", "uôp"
   }
 }
