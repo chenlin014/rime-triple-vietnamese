@@ -288,10 +288,6 @@ end
 local T={}
 
 function T.init(env)
-	local name_space = env.name_space
-	if not name_space or name_space == "main" then return end
-	local schema = Schema(env.engine.schema.schema_id or "")
-	env[name_space.."_tran"] = Component.Translator(env.engine, schema, name_space, "script_translator")
 end
 
 function T.fini(env)
@@ -299,19 +295,17 @@ end
 
 function T.func(input, seg, env)
 	local context = env.engine.context
+	local schema_cfg = env.engine.schema.config
 	local name_space = env.name_space
 
-	if name_space ~= "main" then
-		if not context:get_option(name_space) then
-			return
-		end
-	end
+	local alphabet = schema_cfg:get_string("speller/alphabet") or ""
+	local initials = schema_cfg:get_string("speller/initials") or ""
 
 	local codes = divide_string(input, 3)
 	local text = ""
 
 	for _, code in ipairs(codes) do
-		if code:match("^[^a-zA-Z]$") then
+		if #code == 1 and alphabet:find(code,1,true) and not initials:find(code,1,true) then
 			env.engine:commit_text(text:gsub("^ ", "")..code)
 			context:clear()
 			return
@@ -341,18 +335,9 @@ function T.func(input, seg, env)
 	if text == "" then return end
 	text = text:gsub("^ ", "")
 
-	if name_space == "main" then
-		local cand = Candidate(name_space, seg.start, seg._end, text, " ")
-		cand.quality = 10000
-		yield(cand)
-		return
-	end
-
-	local t = env[name_space.."_tran"]:query(text, seg)
-	if not t then return end
-	for c in t:iter() do
-		yield(Candidate(name_space, seg.start, seg._end, c.text, " "))
-	end
+	local cand = Candidate("vietnamese", seg.start, seg._end, text, " ")
+	cand.quality = 10000
+	yield(cand)
 end
 
 local P = {}

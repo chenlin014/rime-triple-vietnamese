@@ -34,18 +34,20 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - lua_translator@*triple_viet*tran@main
-    - lua_translator@*triple_viet*tran@hannom
+    - lua_translator@*triple_viet*tran
+  filters:
+    - lua_filter@*common.trans_filter@hannom
 
 speller:
   alphabet: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA~`!@#$%^&*()-_+=[]{}\\|:;\"',.<>/?"
   initials: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA"
 
-translator:
-  dictionary: cake_gao_chunom
-
 hannom:
   dictionary: cake_gao_chunom
+  tran_type: script_translator
+  output_source: true
+  input_types: [ vietnamese ]
+  switch: hannom
 
 punctuator:
 
