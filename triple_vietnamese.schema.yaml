@@ -15,16 +15,14 @@ switches:
   - name: hannom
     states: [ chữ, 𡨸 ]
   - name: ascii_punct
-    reset: 1
     states: [ 。，, ．， ]
-  - name: full_shape
-    states: [ 半角, 全角 ]
+    reset: 1
 
 engine:
   processors:
     - selector
     - lua_processor@*common.trikey*proc
-    - lua_processor@*triple_viet*proc
+    - lua_processor@*common.commit_w_space
     - ascii_composer
     - recognizer
     - key_binder
@@ -33,6 +31,7 @@ engine:
     - navigator
     - express_editor
   segmentors:
+    - lua_segmentor@*common.trikey*seg
     - ascii_segmentor
     - matcher
     - abc_segmentor
@@ -56,8 +55,10 @@ hannom:
   switch: hannom
 
 punctuator:
-  __patch:
-    - punctuation:/
+  full_shape:
+    __include: punctuation:/full_shape
+  half_shape:
+    __include: punctuation:/ascii_style
 
 key_binder:
   import_preset: default
@@ -70,6 +71,7 @@ key_binder:
 editor:
   bindings:
     Return: confirm
+    Tab: confirm
 
 recognizer:
   import_preset: default
