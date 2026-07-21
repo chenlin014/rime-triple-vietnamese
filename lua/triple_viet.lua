@@ -305,12 +305,6 @@ function T.func(input, seg, env)
 	local text = ""
 
 	for _, code in ipairs(codes) do
-		if #code == 1 and alphabet:find(code,1,true) and not initials:find(code,1,true) then
-			env.engine:commit_text(text:gsub("^ ", "")..code)
-			context:clear()
-			return
-		end
-
 		local capitalization = capitalization_state(code)
 		code = lowercase(code)
 
@@ -336,7 +330,6 @@ function T.func(input, seg, env)
 	text = text:gsub("^ ", "")
 
 	local cand = Candidate("vietnamese", seg.start, seg._end, text, " ")
-	cand.quality = 10000
 	yield(cand)
 end
 
@@ -353,8 +346,9 @@ function P.func(key, env)
 	local key_repr = key:repr()
 
 	local commit_text = context:get_commit_text()
+	local back_seg = context.composition:back()
 
-	if key_repr == "space" then
+	if key_repr == "space" and back_seg:has_tag("abc") then
 		env.engine:commit_text(commit_text)
 		context:clear()
 	end
