@@ -29,9 +29,9 @@ Assume that "in/" maps to "nam".
   - enter
     - commit + (enter)
   - left shift
-    - commit + (switch to ascii mode)
+    - commit and switch to ascii mode
   - right shift
-    - commit
+    - commit without switching
 
 ## Resource
 - Luong Hieu Thi

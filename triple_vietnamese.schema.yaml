@@ -14,9 +14,8 @@ switches:
     states: [ Việt, ABC ]
   - name: hannom
     states: [ chữ, 𡨸 ]
-  - name: ascii_punct
-    states: [ 。，, ．， ]
-    reset: 1
+  - name: full_shape
+    states: [ ．，, 。， ]
 
 engine:
   processors:
@@ -60,6 +59,8 @@ punctuator:
     __include: punctuation:/full_shape
   half_shape:
     __include: punctuation:/ascii_style
+    "=": [ "₫", "=" ]
+    "$": [ "$", "₫" ]
 
 key_binder:
   import_preset: default
