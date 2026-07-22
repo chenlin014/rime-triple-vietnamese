@@ -11,7 +11,7 @@
 This is a input method for typing vietnamese syllables in three keys.
 
 ## Behavior
-For demonstration purpose, assume "in/" maps to "nam".
+Assume that "in/" maps to "nam".
 - Output for different code lengths
   - 1: onset
   - 2: final
@@ -21,13 +21,17 @@ For demonstration purpose, assume "in/" maps to "nam".
   - In/ -> Nam
   - IN? -> NAM
 - Auto commit
-  - in/ + .
-    - commit "nam."
+  - in/ + !
+    - commit "nam!"
 - Manual commit
-  - in/ + (space)
-    - commit "nam" + (space)
-  - in/ + (enter)
-    - commit "nam"
+  - space
+    - commit + (space)
+  - enter
+    - commit + (enter)
+  - left shift
+    - commit + (switch to ascii mode)
+  - right shift
+    - commit
 
 ## Resource
 - Luong Hieu Thi
