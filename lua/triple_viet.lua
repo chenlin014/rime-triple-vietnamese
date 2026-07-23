@@ -1,3 +1,4 @@
+local casing = require("common/casing")
 local config = require("tri_viet_config")
 
 local maps = {}
@@ -132,7 +133,7 @@ lower2upper = {
 	["đ"] = "Đ"
 }
 
-for l, u in pairs(config.lower_to_upper or {}) do
+for l, u in pairs(casing.shift_up_map) do
 	lower2upper[l] = u
 end
 
@@ -250,25 +251,6 @@ local function capitalization_state(text)
 	end
 end
 
-local function lowercase(text)
-	ltext = ""
-	for _, code in utf8.codes(text) do
-		local char = utf8.char(code)
-		ltext = ltext .. (upper2lower[char] or char:lower())
-	end
-
-	return ltext
-end
-
-local function uppercase(text)
-	local utext = ""
-	for _, code in utf8.codes(text) do
-		local char = utf8.char(code)
-		utext = utext .. (lower2upper[char] or char:upper())
-	end
-	return utext
-end
-
 local function capitalize(text)
 	local offset = utf8.offset(text, 2)
 	local head = text:sub(1,offset-1)
@@ -295,18 +277,13 @@ end
 
 function T.func(input, seg, env)
 	local context = env.engine.context
-	local schema_cfg = env.engine.schema.config
-	local name_space = env.name_space
-
-	local alphabet = schema_cfg:get_string("speller/alphabet") or ""
-	local initials = schema_cfg:get_string("speller/initials") or ""
 
 	local codes = divide_string(input, 3)
 	local text = ""
 
 	for _, code in ipairs(codes) do
 		local capitalization = capitalization_state(code)
-		code = lowercase(code)
+		code = casing.to_lower(code, upper2lower)
 
 		if #code == 1 then
 			code = code.."XX"
@@ -320,7 +297,7 @@ function T.func(input, seg, env)
 		if capitalization == cap_type.head_cap then
 			syllable = capitalize(syllable)
 		elseif capitalization == cap_type.all_caps then
-			syllable = uppercase(syllable)
+			syllable = casing.to_upper(syllable, lower2upper)
 		end
 
 		text = text.." "..syllable
@@ -333,27 +310,6 @@ function T.func(input, seg, env)
 	yield(cand)
 end
 
-local P = {}
+print(casing.to_upper("vóe", lower2upper))
 
-function P.init(env)
-end
-
-function P.fini(env)
-end
-
-function P.func(key, env)
-	local context = env.engine.context
-	local key_repr = key:repr()
-
-	local commit_text = context:get_commit_text()
-	local back_seg = context.composition:back()
-
-	if key_repr == "space" and back_seg:has_tag("abc") then
-		env.engine:commit_text(commit_text)
-		context:clear()
-	end
-
-	return 2 -- noop
-end
-
-return { tran=T, proc=P }
+return { tran=T }
