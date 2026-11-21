@@ -7,9 +7,9 @@ config.keyboard = {
 }
 
 config.onset_map = {
-	"ph", "ch", "th", "kh", "qu", nil, "ng", "nh", "r", "p", nil,
-	"v",  "tr", "t",  "c",  "",   "h", "đ",  "n",  "l", "m",  nil,
-	"b",  "s",  "d",  "g",  "gi", nil, "x"
+	"qu", "ch", "tr", "r",  "t", nil, "ng", "kh", "nh", "p", nil,
+	"",   "s",  "d",  "ph", "g", "h", "đ",  "c",  "l",  nil, nil,
+	"gi", "x",  "th", "v",  "b", "n", "m"
 }
 
 config.rime_maps = {
