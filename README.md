@@ -1,8 +1,14 @@
 # Rime Key Vietnamese
 [Rime](https://rime.im/) Triple Key Vietnamese
 
-## Dependency
+## Installation
+
+Dependency:
 - [KathrynCG/rime-chunom-cakegao](https://github.com/KathrynCG/rime-chunom-cakegao)
+
+[plum](https://github.com/rime/plum) Installation command: `bash rime-install chenlin014/rime-triple-vietnamese:full KathrynCG/rime-chunom-cakegao`
+
+Install default configuration: `bash rime-install chenlin014/rime-triple-vietnamese:default_config`
 
 ## Default Layout
 ![Default Layout](default_layout.png)

@@ -1,0 +1,9 @@
+# encoding: utf-8
+---
+recipe:
+  Rx: default_config
+  args:
+  description: >-
+    Default configuration file for Triple Vietnamese
+install_files: >-
+  lua/tri_viet_config.lua
