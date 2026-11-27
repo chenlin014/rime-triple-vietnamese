@@ -45,6 +45,8 @@ config.rime_maps = {
   }
 }
 
+config.rime_maps[""] = config.rime_maps["a"]
+
 config.group_map = {
 	"oa", "oa", "a", "a", "oat", "oat", "an", "an", "oan", "oan", nil,
 	"oa", "oa", "a", "a", "at",  "at",  "an", "an", "oan", "oan", nil,

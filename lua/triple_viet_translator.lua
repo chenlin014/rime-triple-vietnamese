@@ -205,13 +205,6 @@ local function make_syllable(onset, rime, tone)
 end
 
 local function decode_syllable(code, maps)
-	if type(code) ~= "string" then
-		error("code is not a string")
-	end
-	if #code ~= 3 then
-		error("length of code != 3")
-	end
-
 	local keys = {}
 	keys[1] = string.sub(code,1,1)
 	keys[2] = string.sub(code,2,2)
@@ -219,11 +212,13 @@ local function decode_syllable(code, maps)
 
 	local onset = maps.key2onset[keys[1]] or ""
 
-	local rime_map = maps.rime_maps[maps.key2group[keys[2]]] or {}
+	local rime_map = maps.rime_maps[maps.key2group[keys[3]] or ""] or {}
 
-	local tone = maps.key2tone[keys[2]] or 0
+	local tone = maps.key2tone[keys[3]] or 0
 
-	local rime = rime_map[maps.key_position[keys[3]]] or ""
+	local rime = rime_map[maps.key_position[keys[2]]] or ""
+
+	print(tostring(maps.key2group[keys[3]]))
 
 	return make_syllable(onset, rime, tone)
 end
@@ -284,12 +279,6 @@ function T.func(input, seg, env)
 	for _, code in ipairs(codes) do
 		local capitalization = capitalization_state(code)
 		code = casing.to_lower(code, upper2lower)
-
-		if #code == 1 then
-			code = code.."XX"
-		elseif #code == 2 then
-			code = "X"..code
-		end
 
 		local success, syllable = pcall(decode_syllable, code, maps)
 		if not success then break end
