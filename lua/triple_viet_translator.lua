@@ -310,6 +310,4 @@ function T.func(input, seg, env)
 	yield(cand)
 end
 
-print(casing.to_upper("vóe", lower2upper))
-
-return { tran=T }
+return T

@@ -7,7 +7,7 @@ recipe:
     Triple Vietnamese
 install_files: >-
   *.yaml
-  lua/triple_viet.lua
+  lua/triple_viet_translator.lua
   lua/common/trikey.lua
   lua/common/trans_filter.lua
   lua/common/commit_w_space.lua

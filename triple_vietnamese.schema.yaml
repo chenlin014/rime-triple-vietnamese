@@ -39,7 +39,7 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - lua_translator@*triple_viet*tran
+    - lua_translator@*triple_viet_translator
   filters:
     - lua_filter@*common.trans_filter@hannom
 
