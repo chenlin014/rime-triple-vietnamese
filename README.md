@@ -14,22 +14,20 @@ Install default configuration: `bash rime-install chenlin014/rime-triple-vietnam
 ![Default Layout](default_layout.png)
 
 ## About
-This is a input method for typing vietnamese syllables in three keys.
+This is a input method that can type vietnamese syllables in three keys.
 
 ## Behavior
 Assume that "in/" maps to "nam".
-- Output for different code lengths
-  - 1: onset
-  - 2: final
-  - 3: syllable
 - Capitalization
   - in/ -> nam
   - In/ -> Nam
   - IN? -> NAM
+- Auto space
+  - in/in/ -> nam nam
 - Auto commit
   - in/ + !
     - commit "nam!"
-- Manual commit
+- Commit Keys
   - space
     - commit + (space)
   - enter
