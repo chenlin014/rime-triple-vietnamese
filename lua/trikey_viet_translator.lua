@@ -1,5 +1,5 @@
 local casing = require("common/casing")
-local config = require("triple_viet_config")
+local config = require("trikey_viet_config")
 
 local maps = {}
 maps.key_position = {}

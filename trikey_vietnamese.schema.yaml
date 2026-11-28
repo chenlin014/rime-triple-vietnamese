@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 schema:
-  schema_id: triple_vietnamese
+  schema_id: trikey_vietnamese
   name: Ba Việt
   version: '0.0'
   author:
@@ -42,7 +42,7 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - lua_translator@*triple_viet_translator
+    - lua_translator@*trikey_viet_translator
   filters:
     - lua_filter@*common.trans_filter@hannom
 
