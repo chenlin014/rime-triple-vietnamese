@@ -6,4 +6,4 @@ recipe:
   description: >-
     Default configuration file for Triple Vietnamese
 install_files: >-
-  lua/tri_viet_config.lua
+  lua/triple_viet_config.lua
