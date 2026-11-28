@@ -15,12 +15,15 @@ switches:
   - name: hannom
     states: [ chữ, 𡨸 ]
   - name: full_shape
-    states: [ ．，, 。， ]
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+    reset: 1
 
 engine:
   processors:
-    - lua_processor@*common.commit_w_space
-    - lua_processor@*common.commit_n_return
+    - lua_processor@*common.uneaten_space
+    - lua_processor@*common.uneaten_return
     - selector
     - lua_processor@*common.trikey*proc
     - ascii_composer
@@ -56,7 +59,9 @@ hannom:
 
 punctuator:
   full_shape:
-    __include: punctuation:/full_shape
+    __include: punctuation:/ascii_style
+    "=": [ "₫", "=" ]
+    "$": [ "$", "₫" ]
   half_shape:
     __include: punctuation:/ascii_style
     "=": [ "₫", "=" ]
